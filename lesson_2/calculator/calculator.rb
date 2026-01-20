@@ -27,7 +27,7 @@ loop do
   name = gets.chomp
 
   if name.empty?
-    prompt("Make sure to use a valid name.")
+    prompt('Make sure to use a valid name.')
   else
     prompt("Hi, #{name}!")
     break
@@ -35,34 +35,29 @@ loop do
 end
 
 loop do    # main loop
-
   number1 = ''
   loop do
     prompt("What's the first number?")
     number1 = gets.chomp.to_i
-    if valid_number?(number1)
-      break
-    else
-      prompt ("Hmm... that doesn't look like a valid number")
-    end
+    break if valid_number?(number1)
+
+    prompt("Hmm... that doesn't look like a valid number")
   end
 
   number2 = ''
   loop do
     prompt("What's the second number?")
     number2 = gets.chomp.to_i
-    if valid_number?(number2)
-      break
-    else
-      prompt ("Hmm... that doesn't look like a valid number")
-    end
+    break if valid_number?(number2)
+
+    prompt("Hmm... that doesn't look like a valid number")
   end
 
   operator_prompt = <<-MSG
-    What operation would you like to perform? 
-    1) add 
-    2) subtract 
-    3) multiply 
+    What operation would you like to perform?#{' '}
+    1) add#{' '}
+    2) subtract#{' '}
+    3) multiply#{' '}
     4) divide
   MSG
 
@@ -70,12 +65,10 @@ loop do    # main loop
 
   operator = ''
   loop do
-      operator = gets.chomp
-      if %w(1 2 3 4).include?(operator)
-        break
-      else
-        prompt("Must choose 1, 2, 3, or 4.")
-      end
+    operator = gets.chomp
+    break if %w[1 2 3 4].include?(operator)
+
+    prompt('Must choose 1, 2, 3, or 4.')
   end
 
   prompt("#{operation_to_message(operator)} the two numbers... ")
@@ -89,10 +82,9 @@ loop do    # main loop
 
   prompt("The result is: #{result}")
 
-  prompt("Do you want to perform another calucluation? (Y to calculate again)")
+  prompt('Do you want to perform another calucluation? (Y to calculate again)')
   answer = gets.chomp
   break unless answer.downcase == 'y'
-
 end
 
-prompt("Thanks for using the calculator! Goodbye!")
+prompt('Thanks for using the calculator! Goodbye!')

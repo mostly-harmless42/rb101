@@ -8,23 +8,52 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def numeric?(value)
+   !!(value.match?(/\d+/))
+end
+
+def valid?(value)
+  numeric?(value) && value.to_f > 0
+end
+
 prompt('Welcome to Loan Calculator!')
 
-prompt('Enter the principal amount: ')
-principal = gets.chomp.to_f
+loop do
+  prompt('Enter the principal amount: ')
+  principal = gets.chomp
 
-prompt('Enter the loan duration in years: ')
-duration_in_years = gets.chomp.to_f
+  until valid?(principal)
+    prompt("Oops... please enter a valid positive number: ")
+    principal = gets.chomp
+  end
 
-prompt('Enter the annual percentage rate: ')
-decimal_apr = gets.chomp.to_f / 100
+  prompt('Enter the loan duration in years: ')
+  duration_in_years = gets.chomp
 
-duration_in_months = duration_in_years * 12
+  until valid?(duration_in_years)
+    prompt("Oops... please enter a valid positive number: ")
+    duration_in_years = gets.chomp
+  end
 
-decimal_mpr = decimal_apr / 12
+  prompt('Enter the annual percentage rate: ')
+  apr = gets.chomp
 
-monthly_payment = principal * (decimal_mpr / (1 - (1 + decimal_mpr) ** (-duration_in_months)))
-monthly_payment_rounded = monthly_payment.round(2)
+  until valid?(apr)
+    prompt("Oops... please enter a valid positive number: ")
+    apr = gets.chomp
+  end
 
-prompt("Your monthly payment is: $#{monthly_payment_rounded}.")
+  duration_in_months = duration_in_years.to_f * 12
+
+  decimal_mpr = apr.to_f / 100 / 12
+
+  monthly_payment = principal.to_f * (decimal_mpr / (1 - (1 + decimal_mpr) ** (-duration_in_months)))
+  monthly_payment_rounded = monthly_payment.round(2)
+
+  prompt("Your monthly payment is: $#{monthly_payment_rounded}.")
+
+  prompt("Enter 'Y' to perform another calculation: ")
+  break unless gets.chomp.downcase == 'y'
+
+end
 prompt("Thanks for using Loan Calculator!")

@@ -1,6 +1,6 @@
 # ask the user for the loan amount, duration, and APR
 # calculate the monthly interest rate and duration in months
-# calculate the monthly payment using formula: 
+# calculate the monthly payment using formula:
 #   m = p * (j / (1 - (1 + j)**(-n)))
 # output the monthly payment
 
@@ -9,7 +9,7 @@ def prompt(message)
 end
 
 def numeric?(value)
-   !!(value.match?(/\d+/))
+  !!(value.match?(/\d+/))
 end
 
 def valid?(value)
@@ -47,13 +47,16 @@ loop do
 
   decimal_mpr = apr.to_f / 100 / 12
 
-  monthly_payment = principal.to_f * (decimal_mpr / (1 - (1 + decimal_mpr) ** (-duration_in_months)))
+  monthly_payment =
+    principal.to_f *
+    (decimal_mpr / (1 - ((1 + decimal_mpr)**(-duration_in_months))))
+
   monthly_payment_rounded = monthly_payment.round(2)
 
   prompt("Your monthly payment is: $#{monthly_payment_rounded}.")
 
   prompt("Enter 'Y' to perform another calculation: ")
   break unless gets.chomp.downcase == 'y'
-
 end
+
 prompt("Thanks for using Loan Calculator!")

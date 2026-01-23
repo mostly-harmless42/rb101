@@ -1,17 +1,19 @@
-CHOICES = ['rock', 'paper', 'scissors']
+CHOICES = %w[rock paper scissors]
 
 def prompt(message)
   puts("=> #{message}")
 end
 
-def display_results(choice, computer_choice)
-  if (choice == 'rock' && computer_choice == 'scissors') ||
-     (choice == 'paper' && computer_choice == 'rock') ||
-     (choice == 'scissors' && computer_choice == 'paper')
+def win?(first, second)
+  (first == 'rock' && second == 'scissors') ||
+    (first == 'paper' && second == 'rock') ||
+    (first == 'scissors' && second == 'paper')
+end
+
+def display_results(player, computer)
+  if win?(player, computer)
     prompt("You won!")
-  elsif (choice == 'rock' && computer_choice == 'paper') ||
-        (choice == 'paper' && computer_choice == 'scissors') ||
-        (choice == 'scissors' && computer_choice == 'rock')
+  elsif win?(computer, player)
     prompt("Computer won!")
   else
     prompt("It's a tie!")
@@ -19,19 +21,19 @@ def display_results(choice, computer_choice)
 end
 
 loop do
-  choice = ''
+  player = ''
   loop do
     prompt("Choose one: #{CHOICES.join(', ')}")
-    choice = gets.chomp
-    break if CHOICES.include?(choice)
+    player = gets.chomp
+    break if CHOICES.include?(player)
     puts("That's not a valid choice.")
   end
 
-  computer_choice = CHOICES.sample
+  computer = CHOICES.sample
 
-  prompt("You chose: #{choice}. Computer chose: #{computer_choice}")
+  prompt("You chose: #{player}. Computer chose: #{computer}")
 
-  display_results(choice, computer_choice)
+  display_results(player, computer)
 
   prompt("Do you want to play again? (Y to play again)")
   answer = gets.chomp

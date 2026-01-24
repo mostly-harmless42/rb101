@@ -1,11 +1,10 @@
 CHOICES = %w[rock paper scissors lizard spock]
 
-WIN = {'rock' => ['scissors', 'lizard'],
+WIN = { 'rock' => ['scissors', 'lizard'],
         'paper' => ['rock', 'spock'],
         'scissors' => ['paper', 'lizard'],
         'lizard' => ['paper', 'spock'],
-        'spock' => ['rock', 'scissors']
-      }
+        'spock' => ['rock', 'scissors'] }
 
 def prompt(message)
   puts("=> #{message}")

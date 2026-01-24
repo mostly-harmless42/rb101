@@ -1,13 +1,18 @@
-CHOICES = %w[rock paper scissors]
+CHOICES = %w[rock paper scissors lizard spock]
+
+WIN = {'rock' => ['scissors', 'lizard'],
+        'paper' => ['rock', 'spock'],
+        'scissors' => ['paper', 'lizard'],
+        'lizard' => ['paper', 'spock'],
+        'spock' => ['rock', 'scissors']
+      }
 
 def prompt(message)
   puts("=> #{message}")
 end
 
 def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
+  WIN[first].include?(second)
 end
 
 def display_results(player, computer)
@@ -31,7 +36,7 @@ loop do
 
   computer = CHOICES.sample
 
-  prompt("You chose: #{player}. Computer chose: #{computer}")
+  prompt("You chose: #{player}. Computer chose: #{computer}.")
 
   display_results(player, computer)
 

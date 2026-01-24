@@ -23,7 +23,8 @@ def player_choice
   loop do
     prompt("Choose one: #{CHOICES.join(', ')}")
     player = gets.chomp
-    player = abbreviated_choice(player) if abbreviated_choice(player)
+    abbreviated = abbreviated_choice(player)
+    player = abbreviated if abbreviated
     break if CHOICES.include?(player)
     puts("That's not a valid choice.")
   end

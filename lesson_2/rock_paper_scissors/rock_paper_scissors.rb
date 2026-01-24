@@ -24,11 +24,16 @@ def display_results(player, computer)
   end
 end
 
+def abbreviated_choice(str)
+  CHOICES.find { |choice| choice.start_with?(str) }
+end
+
 loop do
   player = ''
   loop do
     prompt("Choose one: #{CHOICES.join(', ')}")
     player = gets.chomp
+    player = abbreviated_choice(player) if abbreviated_choice(player)
     break if CHOICES.include?(player)
     puts("That's not a valid choice.")
   end
